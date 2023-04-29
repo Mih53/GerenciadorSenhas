@@ -1,4 +1,6 @@
 /* modeloLogicoPasswizard: */
+Create database GerenciadorSenhas;/* modeloLogicoPasswizard: */
+
 Create database GerenciadorSenhas;
 use GerenciadorSenhas;
 
@@ -7,6 +9,54 @@ use GerenciadorSenhas;
 CREATE TABLE Usuarios (
     id_Usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_Completo VARCHAR(50) NOT NULL,
+    email VARCHAR(20) NOT NULL,
+    telefone_Celular INT NOT NULL,
+    senha VARCHAR(10) NOT NULL,
+    senhas_Id INT NOT NULL,
+    FOREIGN KEY (`telefone_Celular`)
+    REFERENCES`Telefone_celular` (`Telefone_celularr`),
+    FOREIGN KEY (`senhas_Id`)
+    REFERENCES`Senhas` (`Id_senha`)
+);
+
+select * from Usuarios;
+
+CREATE TABLE Senhas (
+    id_Senha INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Senha VARCHAR(10) NOT NULL,
+    Origem VARCHAR(30) NOT NULL,
+    id_Usuario INT,
+    Observacao VARCHAR(200),
+    seguranca_Id_nivel INT,
+    tipo_Origem VARCHAR(20) NOT NULL,
+    data_Hora DATETIME
+);
+
+select * from Senhas;
+
+  ALTER TABLE Senhas ADD FOREIGN KEY (`id_Usuario`) REFERENCES`Usuarios` (`id_Usuario`),
+    ADD FOREIGN KEY (`seguranca_Id_nivel`) REFERENCES`Nivel_seguranca` (`id_Nivel`);
+
+CREATE TABLE Tipos_origem (
+    id_Tipo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Descritivo_tipo VARCHAR(50) 
+);
+
+CREATE TABLE Nivel_seguranca (
+    id_Nivel INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Descritivo_nivel VARCHAR(50),
+    id_Senha INT
+);
+
+  ALTER TABLE Nivel_seguranca ADD FOREIGN KEY (`id_Senha`) REFERENCES`Senhas` (`id_Senha`);
+
+
+CREATE TABLE Telefone_celular (
+    telefone_Celularr INT NOT NULL PRIMARY KEY
+);
+
+ 
+ NOT NULL,
     email VARCHAR(20) NOT NULL,
     telefone_Celular INT NOT NULL,
     senha VARCHAR(10) NOT NULL,
